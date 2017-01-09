@@ -1,0 +1,641 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="问题引入在使用地位授权的时候，我是这么写的，（当然在plist文件中已经配置过相关键值对）     if ([UIDevice currentDevice].systemVersion.floatValue &amp;gt;= 8.0) {    CLLocationManager *locationManager =  [[CLLocationManager alloc]init];    [locat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ios位置授权一闪而过">
+<meta property="og:url" content="http://yoursite.com/2017/01/09/ios位置授权一闪而过/index.html">
+<meta property="og:site_name" content="生命时光">
+<meta property="og:description" content="问题引入在使用地位授权的时候，我是这么写的，（当然在plist文件中已经配置过相关键值对）     if ([UIDevice currentDevice].systemVersion.floatValue &amp;gt;= 8.0) {    CLLocationManager *locationManager =  [[CLLocationManager alloc]init];    [locat">
+<meta property="og:updated_time" content="2017-01-09T16:19:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ios位置授权一闪而过">
+<meta name="twitter:description" content="问题引入在使用地位授权的时候，我是这么写的，（当然在plist文件中已经配置过相关键值对）     if ([UIDevice currentDevice].systemVersion.floatValue &amp;gt;= 8.0) {    CLLocationManager *locationManager =  [[CLLocationManager alloc]init];    [locat">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/09/ios位置授权一闪而过/"/>
+
+
+
+
+
+  <title> ios位置授权一闪而过 | 生命时光 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">生命时光</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/09/ios位置授权一闪而过/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="有我更懂你">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="生命时光">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="生命时光" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ios位置授权一闪而过
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-09T23:05:01+08:00">
+                2017-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h2><p>在使用地位授权的时候，我是这么写的，（当然在plist文件中已经配置过相关键值对）<br>     if ([UIDevice currentDevice].systemVersion.floatValue &gt;= 8.0) {<br>    CLLocationManager *locationManager =  [[CLLocationManager alloc]init];<br>    [locationManager requestWhenInUseAuthorization];<br>    }</p>
+<h2 id="寻找原因"><a href="#寻找原因" class="headerlink" title="寻找原因"></a>寻找原因</h2><p>显示的结果是一闪而过。查看了相关文档</p>
+<blockquote>
+<p>To configure and use a CLLocationManager object to deliver events:<br>1    Always request authorization to use location services and check to see whether the desired services are available as described in Requesting Permission to Use Location Services.<br>2    Create an instance of the CLLocationManager class and store a strong reference to it somewhere in your app.<br>Keeping a strong reference to the location manager object is required until all tasks involving that object are complete. Because most location manager tasks run asynchronously, storing your location manager in a local variable is insufficient.<br>3    Assign a custom object to the delegate property. This object must conform to the CLLocationManagerDelegate protocol.<br>4    Configure any additional properties relevant to the desired service.<br>5    Call the appropriate start method to begin the delivery of events.</p>
+</blockquote>
+<p>第二点说了，创建一个CLLocationManager实例，并且保持一个强引用。保持强引用是因为直到定位相关的任务执行完毕，都需要这个实例。<br>另外给这个对象设置代理，代理必须遵守CLLocationManagerDelegate协议。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>因此，出现上述问题的原因，主要是CLLocationManager对象没有保持强引用。在代码块执行完毕就结束了，等不到用户点击进行授权。因此解决方法就是对这个对象强引用，使其成为属性或者成员变量即可。</p>
+<h2 id="额外信息-请求授权"><a href="#额外信息-请求授权" class="headerlink" title="额外信息-请求授权"></a>额外信息-请求授权</h2><blockquote>
+<p>The use of location services requires user authorization. In addition, some location services require the presence of specific hardware on the given device. For example, heading information is available only on devices that contain a hardware compass. Prior to using location services, your app must request authorization from the user to use those services and it must check the availability of the target services. A typical sequence for using location services is as follows:<br>1    Call the authorizationStatus class method to get the current authorization status for your app.<br>If the authorization status is kCLAuthorizationStatusRestricted or kCLAuthorizationStatusDenied, your app is not permitted to use location services and you should abort your attempt to use them.<br>2    Create your CLLocationManager object and assign a delegate to it.<br>3    Store a strong reference to your location manager somewhere in your app.<br>4    In iOS, if the authorization status was kCLAuthorizationStatusNotDetermined, call the requestWhenInUseAuthorization or requestAlwaysAuthorization method to request the appropriate type of authorization from the user.<br>5    Depending on the services you need, call one or more of the following methods:<br>◦    If you use the standard location service, call the locationServicesEnabled method.<br>◦    If you use the significant location-change service, call the significantLocationChangeMonitoringAvailable method.<br>◦    If you use heading information, call the headingAvailable method.<br>◦    If you monitor geographic or beacon regions, call the isMonitoringAvailableForClass: method.<br>◦    If you perform ranging on Bluetooth beacons, call the isRangingAvailable</p>
+<blockquote>
+<p>Important<br>Always request authorization at the point where you actually plan to use location services to perform a task. Requesting authorization may display an alert to the user. If it is not clear to the user that your app is using location services for a useful purpose, the user may deny your request to use those services.</p>
+</blockquote>
+</blockquote>
+<p>使用位置服务必须用户授权，而且某些功能还需要设备硬件支持，例如头部朝向需要指南针的支持，使用之前必须先请求权限，然后检查状态，一般操作如下：</p>
+<ol>
+<li>调用authorizationStatus类方法 来获取应用程序当前的授权状态</li>
+<li>创建CLLocationManager实例，并设置代理</li>
+<li>在app的某个地方对这个实例对象保持强引用</li>
+<li>如果授权状态是不确定kCLAuthorizationStatusNotDetermined 那么调用requestWhenInUseAuthorization请求需要时授权或者requestAlwaysAuthorization请求一直授权</li>
+<li>根据服务需要，调用一个或多个下列方法<ul>
+<li>如果使用标准的定位服务，调用locationServicesEnabled（用户可以在通用设置中关闭位置服务功能，因此要调用这个方法，判断用户定位服务是否启用，用户用户没有启动，而强行执行开始更新位置时，定位就会想它的代理发送错误通知locationManager:didFailWithError:, locationManager:monitoringDidFailForRegion:withError:）<ul>
+<li>如果使用位置改变服务，调用significantLocationChangeMonitoringAvailable （是否只监听重要位置的改变，追踪用户位置，但不需要精确的位置信息）</li>
+<li>如果使用头部朝向信息，调用headingAvailable（航向是否可用，并未所有的ios设备都支持航向信息，调用此方法检查是否支持）</li>
+<li>如果监听地理位置和区域，调用isMonitoringAvailableForClass（某个类是否支持区域监听，这个类必须继承CLRegion）:</li>
+<li>是否支持蓝牙信标测距，调用isRangingAvailable</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题"></a>遗留问题</h2><p>想在程序启动时就进行位置授权请求，因此在app代理中，当程序启动时请求授权，代理对CLLocationManager强引用，没设置代理，直接请求授权。但在程序使用位置信息时，切换到后台，苹果会在状态栏显示该应用正在后台使用位置信息。分析的可能原因，就是没有再合适的时候，将强引用的这个对象释放掉，导致程序使用位置时指向的是这个定位管理者，而定位管理者没有在合适的时候释放。<br>尝试的解决方案就是让应用代理本身作为CLLocationManager的代理，直接请求更新位置，实现其代理方法，成功或失败，都停止更新，并且除去强引用。不知道会不会引起其他问题。不行的话就单独创建一个类，这个类对象去做刚才应用代理做的那些事情，完成之后，将其置为nil。<br>尝试代码：<br>    (BOOL)application:(UIApplication <em>)application didFinishLaunchingWithOptions:(NSDictionary </em>)launchOptions {<br>        // Override point for customization after application launch.<br>        if ([UIDevice currentDevice].systemVersion.floatValue &gt;= 8.0) {<br>        if (![CLLocationManager locationServicesEnabled]) {<br>        NSLog(@”请先开启定位服务”);<br>        return  YES;<br>        }<br>        self.locationManager=  [[CLLocationManager alloc]init];<br>        self.locationManager.delegate = self;<br>        [self.locationManager startUpdatingLocation];<br>        [self.locationManager requestWhenInUseAuthorization];<br>        }<br>        return YES;<br>    }<br>    -(void)locationManager:(CLLocationManager <em>)manager didUpdateLocations:(NSArray&lt;CLLocation </em>&gt; <em>)locations{<br>    [self.locationManager stopUpdatingLocation];<br>    self.locationManager = nil;<br>    self.locationManager.delegate = nil;<br>    }<br>    -(void)locationManager:(CLLocationManager </em>)manager didFailWithError:(NSError *)error{<br>     [self.locationManager stopUpdatingLocation];<br>    self.locationManager = nil;<br>    self.locationManager.delegate = nil;<br>    }</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/08/随便写点/" rel="next" title="随便写点">
+                <i class="fa fa-chevron-left"></i> 随便写点
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="有我更懂你" />
+          <p class="site-author-name" itemprop="name">有我更懂你</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题引入"><span class="nav-number">1.</span> <span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找原因"><span class="nav-number">2.</span> <span class="nav-text">寻找原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">3.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#额外信息-请求授权"><span class="nav-number">4.</span> <span class="nav-text">额外信息-请求授权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遗留问题"><span class="nav-number">5.</span> <span class="nav-text">遗留问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">有我更懂你</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
