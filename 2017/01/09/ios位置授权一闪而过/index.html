@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/01/09/ios位置授权一闪而过/index.html">
 <meta property="og:site_name" content="生命时光">
 <meta property="og:description" content="问题引入在使用地位授权的时候，我是这么写的，（当然在plist文件中已经配置过相关键值对）     if ([UIDevice currentDevice].systemVersion.floatValue &amp;gt;= 8.0) {    CLLocationManager *locationManager =  [[CLLocationManager alloc]init];    [locat">
-<meta property="og:updated_time" content="2017-01-09T16:19:36.000Z">
+<meta property="og:updated_time" content="2017-01-13T14:13:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ios位置授权一闪而过">
 <meta name="twitter:description" content="问题引入在使用地位授权的时候，我是这么写的，（当然在plist文件中已经配置过相关键值对）     if ([UIDevice currentDevice].systemVersion.floatValue &amp;gt;= 8.0) {    CLLocationManager *locationManager =  [[CLLocationManager alloc]init];    [locat">
@@ -318,12 +318,12 @@
         <h2 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h2><p>在使用地位授权的时候，我是这么写的，（当然在plist文件中已经配置过相关键值对）<br>     if ([UIDevice currentDevice].systemVersion.floatValue &gt;= 8.0) {<br>    CLLocationManager *locationManager =  [[CLLocationManager alloc]init];<br>    [locationManager requestWhenInUseAuthorization];<br>    }</p>
 <h2 id="寻找原因"><a href="#寻找原因" class="headerlink" title="寻找原因"></a>寻找原因</h2><p>显示的结果是一闪而过。查看了相关文档</p>
 <blockquote>
-<p>To configure and use a CLLocationManager object to deliver events:<br>1    Always request authorization to use location services and check to see whether the desired services are available as described in Requesting Permission to Use Location Services.<br>2    Create an instance of the CLLocationManager class and store a strong reference to it somewhere in your app.<br>Keeping a strong reference to the location manager object is required until all tasks involving that object are complete. Because most location manager tasks run asynchronously, storing your location manager in a local variable is insufficient.<br>3    Assign a custom object to the delegate property. This object must conform to the CLLocationManagerDelegate protocol.<br>4    Configure any additional properties relevant to the desired service.<br>5    Call the appropriate start method to begin the delivery of events.</p>
+<p>To configure and use a CLLocationManager object to deliver events:<br>1 Always request authorization to use location services and check to see whether the desired services are available as described in Requesting Permission to Use Location Services.<br>2 Create an instance of the CLLocationManager class and store a strong reference to it somewhere in your app.<br>Keeping a strong reference to the location manager object is required until all tasks involving that object are complete. Because most location manager tasks run asynchronously, storing your location manager in a local variable is insufficient.<br>3 Assign a custom object to the delegate property. This object must conform to the CLLocationManagerDelegate protocol.<br>4 Configure any additional properties relevant to the desired service.<br>5 Call the appropriate start method to begin the delivery of events.</p>
 </blockquote>
 <p>第二点说了，创建一个CLLocationManager实例，并且保持一个强引用。保持强引用是因为直到定位相关的任务执行完毕，都需要这个实例。<br>另外给这个对象设置代理，代理必须遵守CLLocationManagerDelegate协议。</p>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>因此，出现上述问题的原因，主要是CLLocationManager对象没有保持强引用。在代码块执行完毕就结束了，等不到用户点击进行授权。因此解决方法就是对这个对象强引用，使其成为属性或者成员变量即可。</p>
 <h2 id="额外信息-请求授权"><a href="#额外信息-请求授权" class="headerlink" title="额外信息-请求授权"></a>额外信息-请求授权</h2><blockquote>
-<p>The use of location services requires user authorization. In addition, some location services require the presence of specific hardware on the given device. For example, heading information is available only on devices that contain a hardware compass. Prior to using location services, your app must request authorization from the user to use those services and it must check the availability of the target services. A typical sequence for using location services is as follows:<br>1    Call the authorizationStatus class method to get the current authorization status for your app.<br>If the authorization status is kCLAuthorizationStatusRestricted or kCLAuthorizationStatusDenied, your app is not permitted to use location services and you should abort your attempt to use them.<br>2    Create your CLLocationManager object and assign a delegate to it.<br>3    Store a strong reference to your location manager somewhere in your app.<br>4    In iOS, if the authorization status was kCLAuthorizationStatusNotDetermined, call the requestWhenInUseAuthorization or requestAlwaysAuthorization method to request the appropriate type of authorization from the user.<br>5    Depending on the services you need, call one or more of the following methods:<br>◦    If you use the standard location service, call the locationServicesEnabled method.<br>◦    If you use the significant location-change service, call the significantLocationChangeMonitoringAvailable method.<br>◦    If you use heading information, call the headingAvailable method.<br>◦    If you monitor geographic or beacon regions, call the isMonitoringAvailableForClass: method.<br>◦    If you perform ranging on Bluetooth beacons, call the isRangingAvailable</p>
+<p>The use of location services requires user authorization. In addition, some location services require the presence of specific hardware on the given device. For example, heading information is available only on devices that contain a hardware compass. Prior to using location services, your app must request authorization from the user to use those services and it must check the availability of the target services. A typical sequence for using location services is as follows:<br>1 Call the authorizationStatus class method to get the current authorization status for your app.<br>If the authorization status is kCLAuthorizationStatusRestricted or kCLAuthorizationStatusDenied, your app is not permitted to use location services and you should abort your attempt to use them.<br>2 Create your CLLocationManager object and assign a delegate to it.<br>3 Store a strong reference to your location manager somewhere in your app.<br>4 In iOS, if the authorization status was kCLAuthorizationStatusNotDetermined, call the requestWhenInUseAuthorization or requestAlwaysAuthorization method to request the appropriate type of authorization from the user.<br>5 Depending on the services you need, call one or more of the following methods:<br>◦   If you use the standard location service, call the locationServicesEnabled method.<br>◦   If you use the significant location-change service, call the significantLocationChangeMonitoringAvailable method.<br>◦   If you use heading information, call the headingAvailable method.<br>◦   If you monitor geographic or beacon regions, call the isMonitoringAvailableForClass: method.<br>◦   If you perform ranging on Bluetooth beacons, call the isRangingAvailable</p>
 <blockquote>
 <p>Important<br>Always request authorization at the point where you actually plan to use location services to perform a task. Requesting authorization may display an alert to the user. If it is not clear to the user that your app is using location services for a useful purpose, the user may deny your request to use those services.</p>
 </blockquote>
@@ -346,6 +346,7 @@
 </li>
 </ol>
 <h2 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题"></a>遗留问题</h2><p>想在程序启动时就进行位置授权请求，因此在app代理中，当程序启动时请求授权，代理对CLLocationManager强引用，没设置代理，直接请求授权。但在程序使用位置信息时，切换到后台，苹果会在状态栏显示该应用正在后台使用位置信息。分析的可能原因，就是没有再合适的时候，将强引用的这个对象释放掉，导致程序使用位置时指向的是这个定位管理者，而定位管理者没有在合适的时候释放。<br>尝试的解决方案就是让应用代理本身作为CLLocationManager的代理，直接请求更新位置，实现其代理方法，成功或失败，都停止更新，并且除去强引用。不知道会不会引起其他问题。不行的话就单独创建一个类，这个类对象去做刚才应用代理做的那些事情，完成之后，将其置为nil。<br>尝试代码：<br>    (BOOL)application:(UIApplication <em>)application didFinishLaunchingWithOptions:(NSDictionary </em>)launchOptions {<br>        // Override point for customization after application launch.<br>        if ([UIDevice currentDevice].systemVersion.floatValue &gt;= 8.0) {<br>        if (![CLLocationManager locationServicesEnabled]) {<br>        NSLog(@”请先开启定位服务”);<br>        return  YES;<br>        }<br>        self.locationManager=  [[CLLocationManager alloc]init];<br>        self.locationManager.delegate = self;<br>        [self.locationManager startUpdatingLocation];<br>        [self.locationManager requestWhenInUseAuthorization];<br>        }<br>        return YES;<br>    }<br>    -(void)locationManager:(CLLocationManager <em>)manager didUpdateLocations:(NSArray&lt;CLLocation </em>&gt; <em>)locations{<br>    [self.locationManager stopUpdatingLocation];<br>    self.locationManager = nil;<br>    self.locationManager.delegate = nil;<br>    }<br>    -(void)locationManager:(CLLocationManager </em>)manager didFailWithError:(NSError *)error{<br>     [self.locationManager stopUpdatingLocation];<br>    self.locationManager = nil;<br>    self.locationManager.delegate = nil;<br>    }</p>
+<p>结果貌似不行。</p>
 
       
     </div>
@@ -381,6 +382,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/13/在商店看不到应用/" rel="prev" title="为什么我的应用已可供销售了,但依然不能在appStore看到">
+                为什么我的应用已可供销售了,但依然不能在appStore看到 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -450,7 +455,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
